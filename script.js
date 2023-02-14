@@ -12,23 +12,17 @@ class Game {
 };
 
 function setStartGames() {
-    // skapar tom lista som kommer fyllas på med våra startspel
-    let startGames = [];
     // skapar nytt objekt med template från klassen Game
     const pokemon = new Game('Pokémon', 'Nintendo', 'switch', 'Malek');
     // lägger även in nya objektet i listan över start-spel
-    startGames.push(pokemon);
+    games.push(pokemon);
 
     const tlou = new Game('The Last Of Us', 'Naughty Dog', 'PC', 'Joakim');
-    startGames.push(tlou);
+    games.push(tlou);
     const candyCrush = new Game('Candy Crush', 'King', 'mobile', 'Kicki');
-    startGames.push(candyCrush);
+    games.push(candyCrush);
     const rdr = new Game('Red Dead Redemption', 'Rockstar', 'PC', 'Martina');
-    startGames.push(rdr);
-
-    // sparar start-listan med spel i local storage
-    localStorage.setItem('startGames', JSON.stringify(startGames));
-    games = startGames;
+    games.push(rdr);
 };
 // sätt spelen i games-list och i local storage för startGames
 setStartGames();
@@ -55,21 +49,21 @@ renderGamesToUI();
 
 // rendera spel från games-listan ut till UI't
 function renderGamesToUI() {
+    // kolla om vi lagt in nya spel (då kommer games i ls vara längre än startGames)
+    let allGames = JSON.parse(localStorage.getItem('games'));
+
+    if (allGames) {
+        console.log('vi har fler spel tillagda än start-listan');
+        // om vi har fler spel under games i ls vill vi rendera dem istället
+        games = allGames;
+    }
+    createGameCards();
+};
+
+function createGameCards() {
     let gamesContainerEl = document.querySelector('.games-container');
     gamesContainerEl.innerHTML = '';
 
-    // kolla om vi lagt in nya spel (då kommer games i ls vara längre än startGames)
-    let allGames = JSON.parse(getAddedGamesList());
-    let startGames = JSON.parse(localStorage.getItem('startGames'));
-    console.log(allGames);
-
-    if (allGames) {
-        if (allGames.length > startGames.length) {
-            console.log('vi har fler spel tillagda än start-listan');
-            // om vi har fler spel under games i ls vill vi rendera dem istället
-            games = allGames;
-        }
-    }
     games.forEach(game => {
         let gameCardEl = document.createElement('article');
         gameCardEl.classList.add('games-container__card');
@@ -93,11 +87,3 @@ function renderGamesToUI() {
         gamesContainerEl.appendChild(gameCardEl);
     });
 };
-
-
-function getAddedGamesList() {
-    // uppdaterar local storage
-    // kolla om något finns i local storage under 'games'
-    let currentGamesList = localStorage.getItem('games');
-    return currentGamesList;
-}
