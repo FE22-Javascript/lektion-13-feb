@@ -53,7 +53,7 @@ function renderGamesToUI() {
                 </section>
         `;
         gameCardEl.addEventListener('click', () => {
-            localStorage.setItem('game', )
+            localStorage.setItem('game', JSON.stringify(game));
             console.log(game.title);
             console.log(window);
             window.location.href = 'game.html';
