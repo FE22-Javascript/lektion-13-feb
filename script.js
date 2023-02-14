@@ -11,14 +11,23 @@ class Game {
     }
 };
 
-const pokemon = new Game('Pokémon', 'Nintendo', 'switch', 'Malek');
-games.push(pokemon);
-const tlou = new Game('The Last Of Us', 'Naughty Dog', 'PC', 'Joakim');
-games.push(tlou);
-const candyCrush = new Game('Candy Crush', 'King', 'mobile', 'Kicki');
-games.push(candyCrush);
-const rdr = new Game('Red Dead Redemption', 'Rockstar', 'PC', 'Martina');
-games.push(rdr);
+function setStartGames() {
+    let startGames = [];
+    const pokemon = new Game('Pokémon', 'Nintendo', 'switch', 'Malek');
+    games.push(pokemon);
+    startGames.push(pokemon);
+    const tlou = new Game('The Last Of Us', 'Naughty Dog', 'PC', 'Joakim');
+    games.push(tlou);
+    startGames.push(tlou);
+    const candyCrush = new Game('Candy Crush', 'King', 'mobile', 'Kicki');
+    games.push(candyCrush);
+    startGames.push(candyCrush);
+    const rdr = new Game('Red Dead Redemption', 'Rockstar', 'PC', 'Martina');
+    games.push(rdr);
+    startGames.push(rdr);
+    localStorage.setItem('startGames', JSON.stringify(startGames));
+};
+
 
 ADD_GAME_BTN.addEventListener('click', () => {
     // ta info från användaren
@@ -35,12 +44,25 @@ ADD_GAME_BTN.addEventListener('click', () => {
     // rendera uppdaterade listan i UI't
     renderGamesToUI();
 });
-updatedLocalStorage();
+
+// körs när sidan renderas
 renderGamesToUI();
+
 // rendera spel från games-listan ut till UI't
 function renderGamesToUI() {
+    // sätt spelen i games-list och i local storage för startGames
+    setStartGames();
     let gamesContainerEl = document.querySelector('.games-container');
     gamesContainerEl.innerHTML = '';
+
+    // kolla om vi lagt in nya spel (då kommer games i ls vara längre än startGames)
+    let allGames = getAddedGamesList();
+    let startGames = JSON.parse(localStorage.getItem('startGames'));
+
+    if (allGames.length > startGames.length) {
+        console.log('vi har fler spel tillagda än start-listan');
+    }
+
     games.forEach(game => {
         let gameCardEl = document.createElement('article');
         gameCardEl.classList.add('games-container__card');
@@ -65,9 +87,11 @@ function renderGamesToUI() {
     });
 };
 
-function updatedLocalStorage() {
+
+function getAddedGamesList() {
     // uppdaterar local storage
     // kolla om något finns i local storage under 'games'
     let currentGamesList = localStorage.getItem('games');
     console.log(currentGamesList);
+    return currentGamesList;
 }
