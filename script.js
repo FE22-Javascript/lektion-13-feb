@@ -30,10 +30,12 @@ ADD_GAME_BTN.addEventListener('click', () => {
     let newGame = new Game(title, creator, device, from);
     // läggain det nya objektet i listan games
     games.unshift(newGame);
+    // lägga till nya spelet i local storage under games
+    localStorage.setItem('games', JSON.stringify(games));
     // rendera uppdaterade listan i UI't
     renderGamesToUI();
 });
-
+updatedLocalStorage();
 renderGamesToUI();
 // rendera spel från games-listan ut till UI't
 function renderGamesToUI() {
@@ -61,5 +63,11 @@ function renderGamesToUI() {
         });
         gamesContainerEl.appendChild(gameCardEl);
     });
-
 };
+
+function updatedLocalStorage() {
+    // uppdaterar local storage
+    // kolla om något finns i local storage under 'games'
+    let currentGamesList = localStorage.getItem('games');
+    console.log(currentGamesList);
+}
