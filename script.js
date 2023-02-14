@@ -21,7 +21,6 @@ const rdr = new Game('Red Dead Redemption', 'Rockstar', 'PC', 'Martina');
 games.push(rdr);
 
 ADD_GAME_BTN.addEventListener('click', () => {
-    console.log('spel');
     // ta info från användaren
     let title = document.querySelector('#title').value;
     let creator = document.querySelector('#creator').value;
@@ -53,6 +52,8 @@ function renderGamesToUI() {
                 </section>
         `;
         gameCardEl.addEventListener('click', () => {
+            // sätter valt spel i local storage i browsern
+            // så vi kan komma åt den var som helst i applikationen
             localStorage.setItem('game', JSON.stringify(game));
             console.log(game.title);
             console.log(window);
