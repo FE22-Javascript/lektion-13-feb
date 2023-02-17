@@ -1,0 +1,53 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form .form__rows {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+form .form__rows div {
+    display: flex;
+    flex-direction: column;
+}
+
+form .form__rows input[type=text] {
+    height: 2rem;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+form .form__rows input[type=text]:focus,
+form .form__rows input[type=text]:active {
+    appearance: none;
+    border-color: rgb(167, 41, 89);
+}
+
+#add-game {
+    width: min-content;
+    padding: 0.4rem 1rem;
+    background-color: rgb(167, 41, 89);
+    color: white;
+    border: none;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+.games-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 1rem 2rem;
+}
+
+.games-container__card {
+    background-color: #D9D9D9;
+    color: black;
+    min-width: 12rem;
+    padding: 1rem;
+}

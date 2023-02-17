@@ -1,3 +1,19 @@
-.games-container__card {
-    background-color: hotpink;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    max-width: 900px;
+    background-color: #303335;
+    padding: 1rem 2rem;
+    color: white;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+header h1,
+h3 {
+    text-align: center;
 }
